@@ -1,0 +1,2220 @@
+Welcome to Abella 2.0.4-dev
+Abella < Specification "tutorial".
+Reading specification "tutorial"
+
+Abella < Close nat.
+
+Abella < Theorem preservation : 
+forall M T M', {of M T} -> {step M M'} -> {of M' T}.
+
+
+============================
+ forall M T M', {of M T} -> {step M M'} -> {of M' T}
+
+preservation < induction on 2.
+
+IH : forall M T M', {of M T} -> {step M M'}* -> {of M' T}
+============================
+ forall M T M', {of M T} -> {step M M'}@ -> {of M' T}
+
+preservation < intros.
+
+Variables: M T M'
+IH : forall M T M', {of M T} -> {step M M'}* -> {of M' T}
+H1 : {of M T}
+H2 : {step M M'}@
+============================
+ {of M' T}
+
+preservation < case H2.
+Subgoal 1:
+
+Variables: T N' N
+IH : forall M T M', {of M T} -> {step M M'}* -> {of M' T}
+H1 : {of (succ N) T}
+H3 : {step N N'}*
+============================
+ {of (succ N') T}
+
+Subgoal 2 is:
+ {of (app M1' M2) T}
+
+Subgoal 3 is:
+ {of (app M1 M2') T}
+
+Subgoal 4 is:
+ {of (M1 M2) T}
+
+preservation < case H1.
+Subgoal 1:
+
+Variables: N' N
+IH : forall M T M', {of M T} -> {step M M'}* -> {of M' T}
+H3 : {step N N'}*
+H4 : {of N num}
+============================
+ {of (succ N') num}
+
+Subgoal 2 is:
+ {of (app M1' M2) T}
+
+Subgoal 3 is:
+ {of (app M1 M2') T}
+
+Subgoal 4 is:
+ {of (M1 M2) T}
+
+preservation < apply IH to H4 H3.
+Subgoal 1:
+
+Variables: N' N
+IH : forall M T M', {of M T} -> {step M M'}* -> {of M' T}
+H3 : {step N N'}*
+H4 : {of N num}
+H5 : {of N' num}
+============================
+ {of (succ N') num}
+
+Subgoal 2 is:
+ {of (app M1' M2) T}
+
+Subgoal 3 is:
+ {of (app M1 M2') T}
+
+Subgoal 4 is:
+ {of (M1 M2) T}
+
+preservation < search.
+Subgoal 2:
+
+Variables: T M1' M1 M2
+IH : forall M T M', {of M T} -> {step M M'}* -> {of M' T}
+H1 : {of (app M1 M2) T}
+H3 : {step M1 M1'}*
+============================
+ {of (app M1' M2) T}
+
+Subgoal 3 is:
+ {of (app M1 M2') T}
+
+Subgoal 4 is:
+ {of (M1 M2) T}
+
+preservation < case H1.
+Subgoal 2:
+
+Variables: T M1' M1 M2 T2
+IH : forall M T M', {of M T} -> {step M M'}* -> {of M' T}
+H3 : {step M1 M1'}*
+H4 : {of M1 (arr T2 T)}
+H5 : {of M2 T2}
+============================
+ {of (app M1' M2) T}
+
+Subgoal 3 is:
+ {of (app M1 M2') T}
+
+Subgoal 4 is:
+ {of (M1 M2) T}
+
+preservation < apply IH to H4 H3.
+Subgoal 2:
+
+Variables: T M1' M1 M2 T2
+IH : forall M T M', {of M T} -> {step M M'}* -> {of M' T}
+H3 : {step M1 M1'}*
+H4 : {of M1 (arr T2 T)}
+H5 : {of M2 T2}
+H6 : {of M1' (arr T2 T)}
+============================
+ {of (app M1' M2) T}
+
+Subgoal 3 is:
+ {of (app M1 M2') T}
+
+Subgoal 4 is:
+ {of (M1 M2) T}
+
+preservation < search.
+Subgoal 3:
+
+Variables: T M2' M2 M1
+IH : forall M T M', {of M T} -> {step M M'}* -> {of M' T}
+H1 : {of (app M1 M2) T}
+H3 : {val M1}*
+H4 : {step M2 M2'}*
+============================
+ {of (app M1 M2') T}
+
+Subgoal 4 is:
+ {of (M1 M2) T}
+
+preservation < case H1.
+Subgoal 3:
+
+Variables: T M2' M2 M1 T2
+IH : forall M T M', {of M T} -> {step M M'}* -> {of M' T}
+H3 : {val M1}*
+H4 : {step M2 M2'}*
+H5 : {of M1 (arr T2 T)}
+H6 : {of M2 T2}
+============================
+ {of (app M1 M2') T}
+
+Subgoal 4 is:
+ {of (M1 M2) T}
+
+preservation < apply IH to H6 H4.
+Subgoal 3:
+
+Variables: T M2' M2 M1 T2
+IH : forall M T M', {of M T} -> {step M M'}* -> {of M' T}
+H3 : {val M1}*
+H4 : {step M2 M2'}*
+H5 : {of M1 (arr T2 T)}
+H6 : {of M2 T2}
+H7 : {of M2' T2}
+============================
+ {of (app M1 M2') T}
+
+Subgoal 4 is:
+ {of (M1 M2) T}
+
+preservation < search.
+Subgoal 4:
+
+Variables: T M2 M1 T1
+IH : forall M T M', {of M T} -> {step M M'}* -> {of M' T}
+H1 : {of (app (lam T1 (x\M1 x)) M2) T}
+H3 : {val M2}*
+============================
+ {of (M1 M2) T}
+
+preservation < case H1.
+Subgoal 4:
+
+Variables: T M2 M1 T1 T2
+IH : forall M T M', {of M T} -> {step M M'}* -> {of M' T}
+H3 : {val M2}*
+H4 : {of (lam T1 (x\M1 x)) (arr T2 T)}
+H5 : {of M2 T2}
+============================
+ {of (M1 M2) T}
+
+preservation < case H4.
+Subgoal 4:
+
+Variables: T M2 M1 T2
+IH : forall M T M', {of M T} -> {step M M'}* -> {of M' T}
+H3 : {val M2}*
+H5 : {of M2 T2}
+H6 : {of n1 T2 |- of (M1 n1) T}
+============================
+ {of (M1 M2) T}
+
+preservation <  inst H6 with n1 = M2.
+Subgoal 4:
+
+Variables: T M2 M1 T2
+IH : forall M T M', {of M T} -> {step M M'}* -> {of M' T}
+H3 : {val M2}*
+H5 : {of M2 T2}
+H6 : {of n1 T2 |- of (M1 n1) T}
+H7 : {of M2 T2 |- of (M1 M2) T}
+============================
+ {of (M1 M2) T}
+
+preservation < cut H7 with H5.
+Subgoal 4:
+
+Variables: T M2 M1 T2
+IH : forall M T M', {of M T} -> {step M M'}* -> {of M' T}
+H3 : {val M2}*
+H5 : {of M2 T2}
+H6 : {of n1 T2 |- of (M1 n1) T}
+H7 : {of M2 T2 |- of (M1 M2) T}
+H8 : {of (M1 M2) T}
+============================
+ {of (M1 M2) T}
+
+preservation < search.
+Proof completed.
+Abella < Theorem progress : 
+forall M T, {of M T} -> {val M} \/ (exists M', {step M M'}).
+
+
+============================
+ forall M T, {of M T} -> {val M} \/ (exists M', {step M M'})
+
+progress < induction on 1.
+
+IH : forall M T, {of M T}* -> {val M} \/ (exists M', {step M M'})
+============================
+ forall M T, {of M T}@ -> {val M} \/ (exists M', {step M M'})
+
+progress < intros.
+
+Variables: M T
+IH : forall M T, {of M T}* -> {val M} \/ (exists M', {step M M'})
+H1 : {of M T}@
+============================
+ {val M} \/ (exists M', {step M M'})
+
+progress < case H1.
+Subgoal 1:
+
+IH : forall M T, {of M T}* -> {val M} \/ (exists M', {step M M'})
+============================
+ {val zero} \/ (exists M', {step zero M'})
+
+Subgoal 2 is:
+ {val (succ N)} \/ (exists M', {step (succ N) M'})
+
+Subgoal 3 is:
+ {val (lam T2 (x\M1 x))} \/ (exists M', {step (lam T2 (x\M1 x)) M'})
+
+Subgoal 4 is:
+ {val (app M1 M2)} \/ (exists M', {step (app M1 M2) M'})
+
+progress < search.
+Subgoal 2:
+
+Variables: N
+IH : forall M T, {of M T}* -> {val M} \/ (exists M', {step M M'})
+H2 : {of N num}*
+============================
+ {val (succ N)} \/ (exists M', {step (succ N) M'})
+
+Subgoal 3 is:
+ {val (lam T2 (x\M1 x))} \/ (exists M', {step (lam T2 (x\M1 x)) M'})
+
+Subgoal 4 is:
+ {val (app M1 M2)} \/ (exists M', {step (app M1 M2) M'})
+
+progress < apply IH to H2.
+Subgoal 2:
+
+Variables: N
+IH : forall M T, {of M T}* -> {val M} \/ (exists M', {step M M'})
+H2 : {of N num}*
+H3 : {val N} \/ (exists M', {step N M'})
+============================
+ {val (succ N)} \/ (exists M', {step (succ N) M'})
+
+Subgoal 3 is:
+ {val (lam T2 (x\M1 x))} \/ (exists M', {step (lam T2 (x\M1 x)) M'})
+
+Subgoal 4 is:
+ {val (app M1 M2)} \/ (exists M', {step (app M1 M2) M'})
+
+progress < case H3.
+Subgoal 2.1:
+
+Variables: N
+IH : forall M T, {of M T}* -> {val M} \/ (exists M', {step M M'})
+H2 : {of N num}*
+H4 : {val N}
+============================
+ {val (succ N)} \/ (exists M', {step (succ N) M'})
+
+Subgoal 2.2 is:
+ {val (succ N)} \/ (exists M', {step (succ N) M'})
+
+Subgoal 3 is:
+ {val (lam T2 (x\M1 x))} \/ (exists M', {step (lam T2 (x\M1 x)) M'})
+
+Subgoal 4 is:
+ {val (app M1 M2)} \/ (exists M', {step (app M1 M2) M'})
+
+progress < search.
+Subgoal 2.2:
+
+Variables: N M'
+IH : forall M T, {of M T}* -> {val M} \/ (exists M', {step M M'})
+H2 : {of N num}*
+H4 : {step N M'}
+============================
+ {val (succ N)} \/ (exists M', {step (succ N) M'})
+
+Subgoal 3 is:
+ {val (lam T2 (x\M1 x))} \/ (exists M', {step (lam T2 (x\M1 x)) M'})
+
+Subgoal 4 is:
+ {val (app M1 M2)} \/ (exists M', {step (app M1 M2) M'})
+
+progress < search.
+Subgoal 3:
+
+Variables: T1 M1 T2
+IH : forall M T, {of M T}* -> {val M} \/ (exists M', {step M M'})
+H2 : {of n1 T2 |- of (M1 n1) T1}*
+============================
+ {val (lam T2 (x\M1 x))} \/ (exists M', {step (lam T2 (x\M1 x)) M'})
+
+Subgoal 4 is:
+ {val (app M1 M2)} \/ (exists M', {step (app M1 M2) M'})
+
+progress < search.
+Subgoal 4:
+
+Variables: T T2 M2 M1
+IH : forall M T, {of M T}* -> {val M} \/ (exists M', {step M M'})
+H2 : {of M1 (arr T2 T)}*
+H3 : {of M2 T2}*
+============================
+ {val (app M1 M2)} \/ (exists M', {step (app M1 M2) M'})
+
+progress < apply IH to H2.
+Subgoal 4:
+
+Variables: T T2 M2 M1
+IH : forall M T, {of M T}* -> {val M} \/ (exists M', {step M M'})
+H2 : {of M1 (arr T2 T)}*
+H3 : {of M2 T2}*
+H4 : {val M1} \/ (exists M', {step M1 M'})
+============================
+ {val (app M1 M2)} \/ (exists M', {step (app M1 M2) M'})
+
+progress < case H4.
+Subgoal 4.1:
+
+Variables: T T2 M2 M1
+IH : forall M T, {of M T}* -> {val M} \/ (exists M', {step M M'})
+H2 : {of M1 (arr T2 T)}*
+H3 : {of M2 T2}*
+H5 : {val M1}
+============================
+ {val (app M1 M2)} \/ (exists M', {step (app M1 M2) M'})
+
+Subgoal 4.2 is:
+ {val (app M1 M2)} \/ (exists M', {step (app M1 M2) M'})
+
+progress < apply IH to H3.
+Subgoal 4.1:
+
+Variables: T T2 M2 M1
+IH : forall M T, {of M T}* -> {val M} \/ (exists M', {step M M'})
+H2 : {of M1 (arr T2 T)}*
+H3 : {of M2 T2}*
+H5 : {val M1}
+H6 : {val M2} \/ (exists M', {step M2 M'})
+============================
+ {val (app M1 M2)} \/ (exists M', {step (app M1 M2) M'})
+
+Subgoal 4.2 is:
+ {val (app M1 M2)} \/ (exists M', {step (app M1 M2) M'})
+
+progress < case H6.
+Subgoal 4.1.1:
+
+Variables: T T2 M2 M1
+IH : forall M T, {of M T}* -> {val M} \/ (exists M', {step M M'})
+H2 : {of M1 (arr T2 T)}*
+H3 : {of M2 T2}*
+H5 : {val M1}
+H7 : {val M2}
+============================
+ {val (app M1 M2)} \/ (exists M', {step (app M1 M2) M'})
+
+Subgoal 4.1.2 is:
+ {val (app M1 M2)} \/ (exists M', {step (app M1 M2) M'})
+
+Subgoal 4.2 is:
+ {val (app M1 M2)} \/ (exists M', {step (app M1 M2) M'})
+
+progress < case H5.
+Subgoal 4.1.1.1:
+
+Variables: T T2 M2
+IH : forall M T, {of M T}* -> {val M} \/ (exists M', {step M M'})
+H2 : {of zero (arr T2 T)}*
+H3 : {of M2 T2}*
+H7 : {val M2}
+============================
+ {val (app zero M2)} \/ (exists M', {step (app zero M2) M'})
+
+Subgoal 4.1.1.2 is:
+ {val (app (succ N) M2)} \/ (exists M', {step (app (succ N) M2) M'})
+
+Subgoal 4.1.1.3 is:
+ {val (app (lam T1 M3) M2)} \/ (exists M', {step (app (lam T1 M3) M2) M'})
+
+Subgoal 4.1.2 is:
+ {val (app M1 M2)} \/ (exists M', {step (app M1 M2) M'})
+
+Subgoal 4.2 is:
+ {val (app M1 M2)} \/ (exists M', {step (app M1 M2) M'})
+
+progress < case H2.
+Subgoal 4.1.1.2:
+
+Variables: T T2 M2 N
+IH : forall M T, {of M T}* -> {val M} \/ (exists M', {step M M'})
+H2 : {of (succ N) (arr T2 T)}*
+H3 : {of M2 T2}*
+H7 : {val M2}
+H8 : {val N}
+============================
+ {val (app (succ N) M2)} \/ (exists M', {step (app (succ N) M2) M'})
+
+Subgoal 4.1.1.3 is:
+ {val (app (lam T1 M3) M2)} \/ (exists M', {step (app (lam T1 M3) M2) M'})
+
+Subgoal 4.1.2 is:
+ {val (app M1 M2)} \/ (exists M', {step (app M1 M2) M'})
+
+Subgoal 4.2 is:
+ {val (app M1 M2)} \/ (exists M', {step (app M1 M2) M'})
+
+progress < case H2.
+Subgoal 4.1.1.3:
+
+Variables: T T2 M2 M3 T1
+IH : forall M T, {of M T}* -> {val M} \/ (exists M', {step M M'})
+H2 : {of (lam T1 M3) (arr T2 T)}*
+H3 : {of M2 T2}*
+H7 : {val M2}
+============================
+ {val (app (lam T1 M3) M2)} \/ (exists M', {step (app (lam T1 M3) M2) M'})
+
+Subgoal 4.1.2 is:
+ {val (app M1 M2)} \/ (exists M', {step (app M1 M2) M'})
+
+Subgoal 4.2 is:
+ {val (app M1 M2)} \/ (exists M', {step (app M1 M2) M'})
+
+progress < search.
+Subgoal 4.1.2:
+
+Variables: T T2 M2 M1 M'
+IH : forall M T, {of M T}* -> {val M} \/ (exists M', {step M M'})
+H2 : {of M1 (arr T2 T)}*
+H3 : {of M2 T2}*
+H5 : {val M1}
+H7 : {step M2 M'}
+============================
+ {val (app M1 M2)} \/ (exists M', {step (app M1 M2) M'})
+
+Subgoal 4.2 is:
+ {val (app M1 M2)} \/ (exists M', {step (app M1 M2) M'})
+
+progress < search.
+Subgoal 4.2:
+
+Variables: T T2 M2 M1 M'
+IH : forall M T, {of M T}* -> {val M} \/ (exists M', {step M M'})
+H2 : {of M1 (arr T2 T)}*
+H3 : {of M2 T2}*
+H5 : {step M1 M'}
+============================
+ {val (app M1 M2)} \/ (exists M', {step (app M1 M2) M'})
+
+progress < search.
+Proof completed.
+Abella < Theorem sum_exists : 
+forall N1 N2, {is_nat N1} -> (exists N3, {sum N1 N2 N3}).
+
+
+============================
+ forall N1 N2, {is_nat N1} -> (exists N3, {sum N1 N2 N3})
+
+sum_exists < induction on 1.
+
+IH : forall N1 N2, {is_nat N1}* -> (exists N3, {sum N1 N2 N3})
+============================
+ forall N1 N2, {is_nat N1}@ -> (exists N3, {sum N1 N2 N3})
+
+sum_exists < intros.
+
+Variables: N1 N2
+IH : forall N1 N2, {is_nat N1}* -> (exists N3, {sum N1 N2 N3})
+H1 : {is_nat N1}@
+============================
+ exists N3, {sum N1 N2 N3}
+
+sum_exists < case H1.
+Subgoal 1:
+
+Variables: N2
+IH : forall N1 N2, {is_nat N1}* -> (exists N3, {sum N1 N2 N3})
+============================
+ exists N3, {sum z N2 N3}
+
+Subgoal 2 is:
+ exists N3, {sum (s N) N2 N3}
+
+sum_exists < search.
+Subgoal 2:
+
+Variables: N2 N
+IH : forall N1 N2, {is_nat N1}* -> (exists N3, {sum N1 N2 N3})
+H2 : {is_nat N}*
+============================
+ exists N3, {sum (s N) N2 N3}
+
+sum_exists < apply IH to H2 with N2 = N2.
+Subgoal 2:
+
+Variables: N2 N N3
+IH : forall N1 N2, {is_nat N1}* -> (exists N3, {sum N1 N2 N3})
+H2 : {is_nat N}*
+H3 : {sum N N2 N3}
+============================
+ exists N3, {sum (s N) N2 N3}
+
+sum_exists < search.
+Proof completed.
+Abella < Theorem sum_unique : 
+forall N1 N2 N3 N3', {sum N1 N2 N3} -> {sum N1 N2 N3'} -> N3 = N3'.
+
+
+============================
+ forall N1 N2 N3 N3', {sum N1 N2 N3} -> {sum N1 N2 N3'} -> N3 = N3'
+
+sum_unique < induction on 1.
+
+IH : forall N1 N2 N3 N3', {sum N1 N2 N3}* -> {sum N1 N2 N3'} -> N3 = N3'
+============================
+ forall N1 N2 N3 N3', {sum N1 N2 N3}@ -> {sum N1 N2 N3'} -> N3 = N3'
+
+sum_unique < intros.
+
+Variables: N1 N2 N3 N3'
+IH : forall N1 N2 N3 N3', {sum N1 N2 N3}* -> {sum N1 N2 N3'} -> N3 = N3'
+H1 : {sum N1 N2 N3}@
+H2 : {sum N1 N2 N3'}
+============================
+ N3 = N3'
+
+sum_unique < case H1.
+Subgoal 1:
+
+Variables: N3 N3'
+IH : forall N1 N2 N3 N3', {sum N1 N2 N3}* -> {sum N1 N2 N3'} -> N3 = N3'
+H2 : {sum z N3 N3'}
+============================
+ N3 = N3'
+
+Subgoal 2 is:
+ s N4 = N3'
+
+sum_unique < case H2.
+Subgoal 1:
+
+Variables: N3'
+IH : forall N1 N2 N3 N3', {sum N1 N2 N3}* -> {sum N1 N2 N3'} -> N3 = N3'
+============================
+ N3' = N3'
+
+Subgoal 2 is:
+ s N4 = N3'
+
+sum_unique < search.
+Subgoal 2:
+
+Variables: N2 N3' N4 N6
+IH : forall N1 N2 N3 N3', {sum N1 N2 N3}* -> {sum N1 N2 N3'} -> N3 = N3'
+H2 : {sum (s N6) N2 N3'}
+H3 : {sum N6 N2 N4}*
+============================
+ s N4 = N3'
+
+sum_unique < case H2.
+Subgoal 2:
+
+Variables: N2 N4 N6 N5
+IH : forall N1 N2 N3 N3', {sum N1 N2 N3}* -> {sum N1 N2 N3'} -> N3 = N3'
+H3 : {sum N6 N2 N4}*
+H4 : {sum N6 N2 N5}
+============================
+ s N4 = s N5
+
+sum_unique < apply IH to H3 H4.
+Subgoal 2:
+
+Variables: N2 N6 N5
+IH : forall N1 N2 N3 N3', {sum N1 N2 N3}* -> {sum N1 N2 N3'} -> N3 = N3'
+H3 : {sum N6 N2 N5}*
+H4 : {sum N6 N2 N5}
+============================
+ s N5 = s N5
+
+sum_unique < search.
+Proof completed.
+Abella < Theorem sum_nat : 
+forall N1 N2 N3, {is_nat N1} -> {is_nat N2} -> {sum N1 N2 N3} -> {is_nat N3}.
+
+
+============================
+ forall N1 N2 N3, {is_nat N1} -> {is_nat N2} -> {sum N1 N2 N3} -> {is_nat N3}
+
+sum_nat < induction on 1.
+
+IH : forall N1 N2 N3, {is_nat N1}* -> {is_nat N2} -> {sum N1 N2 N3} ->
+       {is_nat N3}
+============================
+ forall N1 N2 N3, {is_nat N1}@ -> {is_nat N2} -> {sum N1 N2 N3} ->
+   {is_nat N3}
+
+sum_nat < intros.
+
+Variables: N1 N2 N3
+IH : forall N1 N2 N3, {is_nat N1}* -> {is_nat N2} -> {sum N1 N2 N3} ->
+       {is_nat N3}
+H1 : {is_nat N1}@
+H2 : {is_nat N2}
+H3 : {sum N1 N2 N3}
+============================
+ {is_nat N3}
+
+sum_nat < case H1.
+Subgoal 1:
+
+Variables: N2 N3
+IH : forall N1 N2 N3, {is_nat N1}* -> {is_nat N2} -> {sum N1 N2 N3} ->
+       {is_nat N3}
+H2 : {is_nat N2}
+H3 : {sum z N2 N3}
+============================
+ {is_nat N3}
+
+Subgoal 2 is:
+ {is_nat N3}
+
+sum_nat < case H3.
+Subgoal 1:
+
+Variables: N3
+IH : forall N1 N2 N3, {is_nat N1}* -> {is_nat N2} -> {sum N1 N2 N3} ->
+       {is_nat N3}
+H2 : {is_nat N3}
+============================
+ {is_nat N3}
+
+Subgoal 2 is:
+ {is_nat N3}
+
+sum_nat < search.
+Subgoal 2:
+
+Variables: N2 N3 N
+IH : forall N1 N2 N3, {is_nat N1}* -> {is_nat N2} -> {sum N1 N2 N3} ->
+       {is_nat N3}
+H2 : {is_nat N2}
+H3 : {sum (s N) N2 N3}
+H4 : {is_nat N}*
+============================
+ {is_nat N3}
+
+sum_nat < case H3.
+Subgoal 2:
+
+Variables: N2 N N4
+IH : forall N1 N2 N3, {is_nat N1}* -> {is_nat N2} -> {sum N1 N2 N3} ->
+       {is_nat N3}
+H2 : {is_nat N2}
+H4 : {is_nat N}*
+H5 : {sum N N2 N4}
+============================
+ {is_nat (s N4)}
+
+sum_nat < apply IH to H4 H2 H5.
+Subgoal 2:
+
+Variables: N2 N N4
+IH : forall N1 N2 N3, {is_nat N1}* -> {is_nat N2} -> {sum N1 N2 N3} ->
+       {is_nat N3}
+H2 : {is_nat N2}
+H4 : {is_nat N}*
+H5 : {sum N N2 N4}
+H6 : {is_nat N4}
+============================
+ {is_nat (s N4)}
+
+sum_nat < search.
+Proof completed.
+Abella < Define ctx : olist -> olist -> prop by 
+ctx nil nil;
+nabla x, ctx (of x T :: G) (size x z :: H) := ctx G H.
+
+Abella < Theorem ctx_invert1 : 
+forall G H E, ctx G H -> member E G ->
+  (exists X T, E = of X T /\ is_name X /\ member (size X z) H).
+
+
+============================
+ forall G H E, ctx G H -> member E G ->
+   (exists X T, E = of X T /\ is_name X /\ member (size X z) H)
+
+ctx_invert1 < induction on 1.
+
+IH : forall G H E, ctx G H * -> member E G ->
+       (exists X T, E = of X T /\ is_name X /\ member (size X z) H)
+============================
+ forall G H E, ctx G H @ -> member E G ->
+   (exists X T, E = of X T /\ is_name X /\ member (size X z) H)
+
+ctx_invert1 < intros.
+
+Variables: G H E
+IH : forall G H E, ctx G H * -> member E G ->
+       (exists X T, E = of X T /\ is_name X /\ member (size X z) H)
+H1 : ctx G H @
+H2 : member E G
+============================
+ exists X T, E = of X T /\ is_name X /\ member (size X z) H
+
+ctx_invert1 < case H1.
+Subgoal 1:
+
+Variables: E
+IH : forall G H E, ctx G H * -> member E G ->
+       (exists X T, E = of X T /\ is_name X /\ member (size X z) H)
+H2 : member E nil
+============================
+ exists X T, E = of X T /\ is_name X /\ member (size X z) nil
+
+Subgoal 2 is:
+ exists X T, E n1 = of X T /\ is_name X /\
+   member (size X z) (size n1 z :: H1)
+
+ctx_invert1 < case H2.
+Subgoal 2:
+
+Variables: E H1 G1 T
+IH : forall G H E, ctx G H * -> member E G ->
+       (exists X T, E = of X T /\ is_name X /\ member (size X z) H)
+H2 : member (E n1) (of n1 T :: G1)
+H3 : ctx G1 H1 *
+============================
+ exists X T, E n1 = of X T /\ is_name X /\
+   member (size X z) (size n1 z :: H1)
+
+ctx_invert1 < case H2.
+Subgoal 2.1:
+
+Variables: H1 G1 T
+IH : forall G H E, ctx G H * -> member E G ->
+       (exists X T, E = of X T /\ is_name X /\ member (size X z) H)
+H3 : ctx G1 H1 *
+============================
+ exists X T1, of n1 T = of X T1 /\ is_name X /\
+   member (size X z) (size n1 z :: H1)
+
+Subgoal 2.2 is:
+ exists X T, E n1 = of X T /\ is_name X /\
+   member (size X z) (size n1 z :: H1)
+
+ctx_invert1 < search.
+Subgoal 2.2:
+
+Variables: E H1 G1 T
+IH : forall G H E, ctx G H * -> member E G ->
+       (exists X T, E = of X T /\ is_name X /\ member (size X z) H)
+H3 : ctx G1 H1 *
+H4 : member (E n1) G1
+============================
+ exists X T, E n1 = of X T /\ is_name X /\
+   member (size X z) (size n1 z :: H1)
+
+ctx_invert1 < apply IH to H3 H4.
+Subgoal 2.2:
+
+Variables: H1 G1 T X T1
+IH : forall G H E, ctx G H * -> member E G ->
+       (exists X T, E = of X T /\ is_name X /\ member (size X z) H)
+H3 : ctx G1 H1 *
+H4 : member (of (X n1) (T1 n1)) G1
+H5 : is_name (X n1)
+H6 : member (size (X n1) z) H1
+============================
+ exists X1 T, of (X n1) (T1 n1) = of X1 T /\ is_name X1 /\
+   member (size X1 z) (size n1 z :: H1)
+
+ctx_invert1 < search.
+Proof completed.
+Abella < Theorem ctx_invert2 : 
+forall G H E, ctx G H -> member E H -> (exists X, E = size X z /\ is_name X).
+
+
+============================
+ forall G H E, ctx G H -> member E H -> (exists X, E = size X z /\ is_name X)
+
+ctx_invert2 < induction on 1.
+
+IH : forall G H E, ctx G H * -> member E H ->
+       (exists X, E = size X z /\ is_name X)
+============================
+ forall G H E, ctx G H @ -> member E H ->
+   (exists X, E = size X z /\ is_name X)
+
+ctx_invert2 < intros.
+
+Variables: G H E
+IH : forall G H E, ctx G H * -> member E H ->
+       (exists X, E = size X z /\ is_name X)
+H1 : ctx G H @
+H2 : member E H
+============================
+ exists X, E = size X z /\ is_name X
+
+ctx_invert2 < case H1.
+Subgoal 1:
+
+Variables: E
+IH : forall G H E, ctx G H * -> member E H ->
+       (exists X, E = size X z /\ is_name X)
+H2 : member E nil
+============================
+ exists X, E = size X z /\ is_name X
+
+Subgoal 2 is:
+ exists X, E n1 = size X z /\ is_name X
+
+ctx_invert2 < case H2.
+Subgoal 2:
+
+Variables: E H1 G1 T
+IH : forall G H E, ctx G H * -> member E H ->
+       (exists X, E = size X z /\ is_name X)
+H2 : member (E n1) (size n1 z :: H1)
+H3 : ctx G1 H1 *
+============================
+ exists X, E n1 = size X z /\ is_name X
+
+ctx_invert2 < case H2.
+Subgoal 2.1:
+
+Variables: H1 G1 T
+IH : forall G H E, ctx G H * -> member E H ->
+       (exists X, E = size X z /\ is_name X)
+H3 : ctx G1 H1 *
+============================
+ exists X, size n1 z = size X z /\ is_name X
+
+Subgoal 2.2 is:
+ exists X, E n1 = size X z /\ is_name X
+
+ctx_invert2 < search.
+Subgoal 2.2:
+
+Variables: E H1 G1 T
+IH : forall G H E, ctx G H * -> member E H ->
+       (exists X, E = size X z /\ is_name X)
+H3 : ctx G1 H1 *
+H4 : member (E n1) H1
+============================
+ exists X, E n1 = size X z /\ is_name X
+
+ctx_invert2 < apply IH to H3 H4.
+Subgoal 2.2:
+
+Variables: H1 G1 T X
+IH : forall G H E, ctx G H * -> member E H ->
+       (exists X, E = size X z /\ is_name X)
+H3 : ctx G1 H1 *
+H4 : member (size (X n1) z) H1
+H5 : is_name (X n1)
+============================
+ exists X1, size (X n1) z = size X1 z /\ is_name X1
+
+ctx_invert2 < search.
+Proof completed.
+Abella < Theorem sum!size : 
+forall G H N1 N2 N3, ctx G H -> {H |- sum N1 N2 N3} -> {sum N1 N2 N3}.
+
+
+============================
+ forall G H N1 N2 N3, ctx G H -> {H |- sum N1 N2 N3} -> {sum N1 N2 N3}
+
+sum!size < induction on 2.
+
+IH : forall G H N1 N2 N3, ctx G H -> {H |- sum N1 N2 N3}* -> {sum N1 N2 N3}
+============================
+ forall G H N1 N2 N3, ctx G H -> {H |- sum N1 N2 N3}@ -> {sum N1 N2 N3}
+
+sum!size < intros.
+
+Variables: G H N1 N2 N3
+IH : forall G H N1 N2 N3, ctx G H -> {H |- sum N1 N2 N3}* -> {sum N1 N2 N3}
+H1 : ctx G H
+H2 : {H |- sum N1 N2 N3}@
+============================
+ {sum N1 N2 N3}
+
+sum!size < case H2.
+Subgoal 1:
+
+Variables: G H N3
+IH : forall G H N1 N2 N3, ctx G H -> {H |- sum N1 N2 N3}* -> {sum N1 N2 N3}
+H1 : ctx G H
+============================
+ {sum z N3 N3}
+
+Subgoal 2 is:
+ {sum (s N6) N2 (s N4)}
+
+Subgoal 3 is:
+ {sum N1 N2 N3}
+
+sum!size < search.
+Subgoal 2:
+
+Variables: G H N2 N4 N6
+IH : forall G H N1 N2 N3, ctx G H -> {H |- sum N1 N2 N3}* -> {sum N1 N2 N3}
+H1 : ctx G H
+H3 : {H |- sum N6 N2 N4}*
+============================
+ {sum (s N6) N2 (s N4)}
+
+Subgoal 3 is:
+ {sum N1 N2 N3}
+
+sum!size < apply IH to H1 H3.
+Subgoal 2:
+
+Variables: G H N2 N4 N6
+IH : forall G H N1 N2 N3, ctx G H -> {H |- sum N1 N2 N3}* -> {sum N1 N2 N3}
+H1 : ctx G H
+H3 : {H |- sum N6 N2 N4}*
+H4 : {sum N6 N2 N4}
+============================
+ {sum (s N6) N2 (s N4)}
+
+Subgoal 3 is:
+ {sum N1 N2 N3}
+
+sum!size < search.
+Subgoal 3:
+
+Variables: G H N1 N2 N3 F
+IH : forall G H N1 N2 N3, ctx G H -> {H |- sum N1 N2 N3}* -> {sum N1 N2 N3}
+H1 : ctx G H
+H3 : {H, [F] |- sum N1 N2 N3}*
+H4 : member F H
+============================
+ {sum N1 N2 N3}
+
+sum!size < apply ctx_invert2 to H1 H4.
+Subgoal 3:
+
+Variables: G H N1 N2 N3 X
+IH : forall G H N1 N2 N3, ctx G H -> {H |- sum N1 N2 N3}* -> {sum N1 N2 N3}
+H1 : ctx G H
+H3 : {H, [size X z] |- sum N1 N2 N3}*
+H4 : member (size X z) H
+H5 : is_name X
+============================
+ {sum N1 N2 N3}
+
+sum!size < case H3.
+Proof completed.
+Abella < Theorem size_nat : 
+forall G H M N, ctx G H -> {H |- size M N} -> {is_nat N}.
+
+
+============================
+ forall G H M N, ctx G H -> {H |- size M N} -> {is_nat N}
+
+size_nat < induction on 2.
+
+IH : forall G H M N, ctx G H -> {H |- size M N}* -> {is_nat N}
+============================
+ forall G H M N, ctx G H -> {H |- size M N}@ -> {is_nat N}
+
+size_nat < intros.
+
+Variables: G H M N
+IH : forall G H M N, ctx G H -> {H |- size M N}* -> {is_nat N}
+H1 : ctx G H
+H2 : {H |- size M N}@
+============================
+ {is_nat N}
+
+size_nat < case H2.
+Subgoal 1:
+
+Variables: G H
+IH : forall G H M N, ctx G H -> {H |- size M N}* -> {is_nat N}
+H1 : ctx G H
+============================
+ {is_nat (s z)}
+
+Subgoal 2 is:
+ {is_nat (s N')}
+
+Subgoal 3 is:
+ {is_nat (s N1)}
+
+Subgoal 4 is:
+ {is_nat (s N3)}
+
+Subgoal 5 is:
+ {is_nat N}
+
+size_nat < search.
+Subgoal 2:
+
+Variables: G H N' N1
+IH : forall G H M N, ctx G H -> {H |- size M N}* -> {is_nat N}
+H1 : ctx G H
+H3 : {H |- size N1 N'}*
+============================
+ {is_nat (s N')}
+
+Subgoal 3 is:
+ {is_nat (s N1)}
+
+Subgoal 4 is:
+ {is_nat (s N3)}
+
+Subgoal 5 is:
+ {is_nat N}
+
+size_nat < apply IH to H1 H3.
+Subgoal 2:
+
+Variables: G H N' N1
+IH : forall G H M N, ctx G H -> {H |- size M N}* -> {is_nat N}
+H1 : ctx G H
+H3 : {H |- size N1 N'}*
+H4 : {is_nat N'}
+============================
+ {is_nat (s N')}
+
+Subgoal 3 is:
+ {is_nat (s N1)}
+
+Subgoal 4 is:
+ {is_nat (s N3)}
+
+Subgoal 5 is:
+ {is_nat N}
+
+size_nat < search.
+Subgoal 3:
+
+Variables: G H N1 M1 T
+IH : forall G H M N, ctx G H -> {H |- size M N}* -> {is_nat N}
+H1 : ctx G H
+H3 : {H, size n1 z |- size (M1 n1) N1}*
+============================
+ {is_nat (s N1)}
+
+Subgoal 4 is:
+ {is_nat (s N3)}
+
+Subgoal 5 is:
+ {is_nat N}
+
+size_nat < apply IH to _ H3.
+Subgoal 3:
+
+Variables: G H N1 M1 T
+IH : forall G H M N, ctx G H -> {H |- size M N}* -> {is_nat N}
+H1 : ctx G H
+H3 : {H, size n1 z |- size (M1 n1) N1}*
+H4 : {is_nat N1}
+============================
+ {is_nat (s N1)}
+
+Subgoal 4 is:
+ {is_nat (s N3)}
+
+Subgoal 5 is:
+ {is_nat N}
+
+size_nat < search.
+Subgoal 4:
+
+Variables: G H N3 N2 N1 M2 M1
+IH : forall G H M N, ctx G H -> {H |- size M N}* -> {is_nat N}
+H1 : ctx G H
+H3 : {H |- size M1 N1}*
+H4 : {H |- size M2 N2}*
+H5 : {H |- sum N1 N2 N3}*
+============================
+ {is_nat (s N3)}
+
+Subgoal 5 is:
+ {is_nat N}
+
+size_nat < apply IH to H1 H3.
+Subgoal 4:
+
+Variables: G H N3 N2 N1 M2 M1
+IH : forall G H M N, ctx G H -> {H |- size M N}* -> {is_nat N}
+H1 : ctx G H
+H3 : {H |- size M1 N1}*
+H4 : {H |- size M2 N2}*
+H5 : {H |- sum N1 N2 N3}*
+H6 : {is_nat N1}
+============================
+ {is_nat (s N3)}
+
+Subgoal 5 is:
+ {is_nat N}
+
+size_nat < apply IH to H1 H4.
+Subgoal 4:
+
+Variables: G H N3 N2 N1 M2 M1
+IH : forall G H M N, ctx G H -> {H |- size M N}* -> {is_nat N}
+H1 : ctx G H
+H3 : {H |- size M1 N1}*
+H4 : {H |- size M2 N2}*
+H5 : {H |- sum N1 N2 N3}*
+H6 : {is_nat N1}
+H7 : {is_nat N2}
+============================
+ {is_nat (s N3)}
+
+Subgoal 5 is:
+ {is_nat N}
+
+size_nat < apply sum!size to H1 H5.
+Subgoal 4:
+
+Variables: G H N3 N2 N1 M2 M1
+IH : forall G H M N, ctx G H -> {H |- size M N}* -> {is_nat N}
+H1 : ctx G H
+H3 : {H |- size M1 N1}*
+H4 : {H |- size M2 N2}*
+H5 : {H |- sum N1 N2 N3}*
+H6 : {is_nat N1}
+H7 : {is_nat N2}
+H8 : {sum N1 N2 N3}
+============================
+ {is_nat (s N3)}
+
+Subgoal 5 is:
+ {is_nat N}
+
+size_nat < apply sum_nat to H6 H7 H8.
+Subgoal 4:
+
+Variables: G H N3 N2 N1 M2 M1
+IH : forall G H M N, ctx G H -> {H |- size M N}* -> {is_nat N}
+H1 : ctx G H
+H3 : {H |- size M1 N1}*
+H4 : {H |- size M2 N2}*
+H5 : {H |- sum N1 N2 N3}*
+H6 : {is_nat N1}
+H7 : {is_nat N2}
+H8 : {sum N1 N2 N3}
+H9 : {is_nat N3}
+============================
+ {is_nat (s N3)}
+
+Subgoal 5 is:
+ {is_nat N}
+
+size_nat < search.
+Subgoal 5:
+
+Variables: G H M N F
+IH : forall G H M N, ctx G H -> {H |- size M N}* -> {is_nat N}
+H1 : ctx G H
+H3 : {H, [F] |- size M N}*
+H4 : member F H
+============================
+ {is_nat N}
+
+size_nat < apply ctx_invert2 to H1 H4.
+Subgoal 5:
+
+Variables: G H M N X
+IH : forall G H M N, ctx G H -> {H |- size M N}* -> {is_nat N}
+H1 : ctx G H
+H3 : {H, [size X z] |- size M N}*
+H4 : member (size X z) H
+H5 : is_name X
+============================
+ {is_nat N}
+
+size_nat < case H3.
+Subgoal 5:
+
+Variables: G H M
+IH : forall G H M N, ctx G H -> {H |- size M N}* -> {is_nat N}
+H1 : ctx G H
+H4 : member (size M z) H
+H5 : is_name M
+============================
+ {is_nat z}
+
+size_nat < search.
+Proof completed.
+Abella < Theorem size_exists : 
+forall G H M T, ctx G H -> {G |- of M T} -> (exists N, {H |- size M N}).
+
+
+============================
+ forall G H M T, ctx G H -> {G |- of M T} -> (exists N, {H |- size M N})
+
+size_exists < induction on 2.
+
+IH : forall G H M T, ctx G H -> {G |- of M T}* -> (exists N, {H |- size M N})
+============================
+ forall G H M T, ctx G H -> {G |- of M T}@ -> (exists N, {H |- size M N})
+
+size_exists < intros Ctx Dof.
+
+Variables: G H M T
+IH : forall G H M T, ctx G H -> {G |- of M T}* -> (exists N, {H |- size M N})
+Ctx : ctx G H
+Dof : {G |- of M T}@
+============================
+ exists N, {H |- size M N}
+
+size_exists < Sub : case Dof.
+Subgoal 1:
+
+Variables: G H
+IH : forall G H M T, ctx G H -> {G |- of M T}* -> (exists N, {H |- size M N})
+Ctx : ctx G H
+============================
+ exists N, {H |- size zero N}
+
+Subgoal 2 is:
+ exists N1, {H |- size (succ N) N1}
+
+Subgoal 3 is:
+ exists N, {H |- size (lam T2 (x\M1 x)) N}
+
+Subgoal 4 is:
+ exists N, {H |- size (app M1 M2) N}
+
+Subgoal 5 is:
+ exists N, {H |- size M N}
+
+size_exists < search.
+Subgoal 2:
+
+Variables: G H N
+IH : forall G H M T, ctx G H -> {G |- of M T}* -> (exists N, {H |- size M N})
+Ctx : ctx G H
+Sub : {G |- of N num}*
+============================
+ exists N1, {H |- size (succ N) N1}
+
+Subgoal 3 is:
+ exists N, {H |- size (lam T2 (x\M1 x)) N}
+
+Subgoal 4 is:
+ exists N, {H |- size (app M1 M2) N}
+
+Subgoal 5 is:
+ exists N, {H |- size M N}
+
+size_exists < apply IH to Ctx Sub.
+Subgoal 2:
+
+Variables: G H N N1
+IH : forall G H M T, ctx G H -> {G |- of M T}* -> (exists N, {H |- size M N})
+Ctx : ctx G H
+Sub : {G |- of N num}*
+H1 : {H |- size N N1}
+============================
+ exists N1, {H |- size (succ N) N1}
+
+Subgoal 3 is:
+ exists N, {H |- size (lam T2 (x\M1 x)) N}
+
+Subgoal 4 is:
+ exists N, {H |- size (app M1 M2) N}
+
+Subgoal 5 is:
+ exists N, {H |- size M N}
+
+size_exists < search.
+Subgoal 3:
+
+Variables: G H T1 M1 T2
+IH : forall G H M T, ctx G H -> {G |- of M T}* -> (exists N, {H |- size M N})
+Ctx : ctx G H
+Sub : {G, of n1 T2 |- of (M1 n1) T1}*
+============================
+ exists N, {H |- size (lam T2 (x\M1 x)) N}
+
+Subgoal 4 is:
+ exists N, {H |- size (app M1 M2) N}
+
+Subgoal 5 is:
+ exists N, {H |- size M N}
+
+size_exists < apply IH to _ Sub.
+Subgoal 3:
+
+Variables: G H T1 M1 T2 N
+IH : forall G H M T, ctx G H -> {G |- of M T}* -> (exists N, {H |- size M N})
+Ctx : ctx G H
+Sub : {G, of n1 T2 |- of (M1 n1) T1}*
+H1 : {H, size n1 z |- size (M1 n1) N}
+============================
+ exists N, {H |- size (lam T2 (x\M1 x)) N}
+
+Subgoal 4 is:
+ exists N, {H |- size (app M1 M2) N}
+
+Subgoal 5 is:
+ exists N, {H |- size M N}
+
+size_exists < search.
+Subgoal 4:
+
+Variables: G H T T2 M2 M1
+IH : forall G H M T, ctx G H -> {G |- of M T}* -> (exists N, {H |- size M N})
+Ctx : ctx G H
+Sub : {G |- of M1 (arr T2 T)}*
+Sub1 : {G |- of M2 T2}*
+============================
+ exists N, {H |- size (app M1 M2) N}
+
+Subgoal 5 is:
+ exists N, {H |- size M N}
+
+size_exists < apply IH to Ctx Sub.
+Subgoal 4:
+
+Variables: G H T T2 M2 M1 N
+IH : forall G H M T, ctx G H -> {G |- of M T}* -> (exists N, {H |- size M N})
+Ctx : ctx G H
+Sub : {G |- of M1 (arr T2 T)}*
+Sub1 : {G |- of M2 T2}*
+H1 : {H |- size M1 N}
+============================
+ exists N, {H |- size (app M1 M2) N}
+
+Subgoal 5 is:
+ exists N, {H |- size M N}
+
+size_exists < apply IH to Ctx Sub1.
+Subgoal 4:
+
+Variables: G H T T2 M2 M1 N N1
+IH : forall G H M T, ctx G H -> {G |- of M T}* -> (exists N, {H |- size M N})
+Ctx : ctx G H
+Sub : {G |- of M1 (arr T2 T)}*
+Sub1 : {G |- of M2 T2}*
+H1 : {H |- size M1 N}
+H2 : {H |- size M2 N1}
+============================
+ exists N, {H |- size (app M1 M2) N}
+
+Subgoal 5 is:
+ exists N, {H |- size M N}
+
+size_exists < apply size_nat to _ H1.
+Subgoal 4:
+
+Variables: G H T T2 M2 M1 N N1
+IH : forall G H M T, ctx G H -> {G |- of M T}* -> (exists N, {H |- size M N})
+Ctx : ctx G H
+Sub : {G |- of M1 (arr T2 T)}*
+Sub1 : {G |- of M2 T2}*
+H1 : {H |- size M1 N}
+H2 : {H |- size M2 N1}
+H3 : {is_nat N}
+============================
+ exists N, {H |- size (app M1 M2) N}
+
+Subgoal 5 is:
+ exists N, {H |- size M N}
+
+size_exists < apply sum_exists to H3 with N2 = N1.
+Subgoal 4:
+
+Variables: G H T T2 M2 M1 N N1 N3
+IH : forall G H M T, ctx G H -> {G |- of M T}* -> (exists N, {H |- size M N})
+Ctx : ctx G H
+Sub : {G |- of M1 (arr T2 T)}*
+Sub1 : {G |- of M2 T2}*
+H1 : {H |- size M1 N}
+H2 : {H |- size M2 N1}
+H3 : {is_nat N}
+H4 : {sum N N1 N3}
+============================
+ exists N, {H |- size (app M1 M2) N}
+
+Subgoal 5 is:
+ exists N, {H |- size M N}
+
+size_exists < search.
+Subgoal 5:
+
+Variables: G H M T F
+IH : forall G H M T, ctx G H -> {G |- of M T}* -> (exists N, {H |- size M N})
+Ctx : ctx G H
+Sub : {G, [F] |- of M T}*
+Sub1 : member F G
+============================
+ exists N, {H |- size M N}
+
+size_exists < apply ctx_invert1 to Ctx Sub1.
+Subgoal 5:
+
+Variables: G H M T X T1
+IH : forall G H M T, ctx G H -> {G |- of M T}* -> (exists N, {H |- size M N})
+Ctx : ctx G H
+Sub : {G, [of X T1] |- of M T}*
+Sub1 : member (of X T1) G
+H1 : is_name X
+H2 : member (size X z) H
+============================
+ exists N, {H |- size M N}
+
+size_exists < case Sub.
+Subgoal 5:
+
+Variables: G H M T
+IH : forall G H M T, ctx G H -> {G |- of M T}* -> (exists N, {H |- size M N})
+Ctx : ctx G H
+Sub1 : member (of M T) G
+H1 : is_name M
+H2 : member (size M z) H
+============================
+ exists N, {H |- size M N}
+
+size_exists < search.
+Proof completed.
+Abella < Theorem size_unique : 
+forall G H M N N', ctx G H -> {H |- size M N} -> {H |- size M N'} -> N = N'.
+
+
+============================
+ forall G H M N N', ctx G H -> {H |- size M N} -> {H |- size M N'} -> N = N'
+
+size_unique < induction on 2.
+
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+============================
+ forall G H M N N', ctx G H -> {H |- size M N}@ -> {H |- size M N'} -> N = N'
+
+size_unique < intros.
+
+Variables: G H M N N'
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+H2 : {H |- size M N}@
+H3 : {H |- size M N'}
+============================
+ N = N'
+
+size_unique < case H2.
+Subgoal 1:
+
+Variables: G H N'
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+H3 : {H |- size zero N'}
+============================
+ s z = N'
+
+Subgoal 2 is:
+ s N'1 = N'
+
+Subgoal 3 is:
+ s N1 = N'
+
+Subgoal 4 is:
+ s N3 = N'
+
+Subgoal 5 is:
+ N = N'
+
+size_unique < case H3.
+Subgoal 1.1:
+
+Variables: G H
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+============================
+ s z = s z
+
+Subgoal 1.2 is:
+ s z = N'
+
+Subgoal 2 is:
+ s N'1 = N'
+
+Subgoal 3 is:
+ s N1 = N'
+
+Subgoal 4 is:
+ s N3 = N'
+
+Subgoal 5 is:
+ N = N'
+
+size_unique < search.
+Subgoal 1.2:
+
+Variables: G H N' F
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+H4 : {H, [F] |- size zero N'}
+H5 : member F H
+============================
+ s z = N'
+
+Subgoal 2 is:
+ s N'1 = N'
+
+Subgoal 3 is:
+ s N1 = N'
+
+Subgoal 4 is:
+ s N3 = N'
+
+Subgoal 5 is:
+ N = N'
+
+size_unique < apply ctx_invert2 to H1 H5.
+Subgoal 1.2:
+
+Variables: G H N' X
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+H4 : {H, [size X z] |- size zero N'}
+H5 : member (size X z) H
+H6 : is_name X
+============================
+ s z = N'
+
+Subgoal 2 is:
+ s N'1 = N'
+
+Subgoal 3 is:
+ s N1 = N'
+
+Subgoal 4 is:
+ s N3 = N'
+
+Subgoal 5 is:
+ N = N'
+
+size_unique < case H4.
+Subgoal 1.2:
+
+Variables: G H
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+H5 : member (size zero z) H
+H6 : is_name zero
+============================
+ s z = z
+
+Subgoal 2 is:
+ s N'1 = N'
+
+Subgoal 3 is:
+ s N1 = N'
+
+Subgoal 4 is:
+ s N3 = N'
+
+Subgoal 5 is:
+ N = N'
+
+size_unique < case H6.
+Subgoal 2:
+
+Variables: G H N' N'1 N1
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+H3 : {H |- size (succ N1) N'}
+H4 : {H |- size N1 N'1}*
+============================
+ s N'1 = N'
+
+Subgoal 3 is:
+ s N1 = N'
+
+Subgoal 4 is:
+ s N3 = N'
+
+Subgoal 5 is:
+ N = N'
+
+size_unique < case H3.
+Subgoal 2.1:
+
+Variables: G H N'1 N1 N'2
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+H4 : {H |- size N1 N'1}*
+H5 : {H |- size N1 N'2}
+============================
+ s N'1 = s N'2
+
+Subgoal 2.2 is:
+ s N'1 = N'
+
+Subgoal 3 is:
+ s N1 = N'
+
+Subgoal 4 is:
+ s N3 = N'
+
+Subgoal 5 is:
+ N = N'
+
+size_unique < apply IH to H1 H4 H5.
+Subgoal 2.1:
+
+Variables: G H N1 N'2
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+H4 : {H |- size N1 N'2}*
+H5 : {H |- size N1 N'2}
+============================
+ s N'2 = s N'2
+
+Subgoal 2.2 is:
+ s N'1 = N'
+
+Subgoal 3 is:
+ s N1 = N'
+
+Subgoal 4 is:
+ s N3 = N'
+
+Subgoal 5 is:
+ N = N'
+
+size_unique < search.
+Subgoal 2.2:
+
+Variables: G H N' N'1 N1 F
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+H4 : {H |- size N1 N'1}*
+H5 : {H, [F] |- size (succ N1) N'}
+H6 : member F H
+============================
+ s N'1 = N'
+
+Subgoal 3 is:
+ s N1 = N'
+
+Subgoal 4 is:
+ s N3 = N'
+
+Subgoal 5 is:
+ N = N'
+
+size_unique < apply ctx_invert2 to H1 H6.
+Subgoal 2.2:
+
+Variables: G H N' N'1 N1 X
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+H4 : {H |- size N1 N'1}*
+H5 : {H, [size X z] |- size (succ N1) N'}
+H6 : member (size X z) H
+H7 : is_name X
+============================
+ s N'1 = N'
+
+Subgoal 3 is:
+ s N1 = N'
+
+Subgoal 4 is:
+ s N3 = N'
+
+Subgoal 5 is:
+ N = N'
+
+size_unique < case H5.
+Subgoal 2.2:
+
+Variables: G H N'1 N1
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+H4 : {H |- size N1 N'1}*
+H6 : member (size (succ N1) z) H
+H7 : is_name (succ N1)
+============================
+ s N'1 = z
+
+Subgoal 3 is:
+ s N1 = N'
+
+Subgoal 4 is:
+ s N3 = N'
+
+Subgoal 5 is:
+ N = N'
+
+size_unique < case H7.
+Subgoal 3:
+
+Variables: G H N' N1 M1 T
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+H3 : {H |- size (lam T (x\M1 x)) N'}
+H4 : {H, size n1 z |- size (M1 n1) N1}*
+============================
+ s N1 = N'
+
+Subgoal 4 is:
+ s N3 = N'
+
+Subgoal 5 is:
+ N = N'
+
+size_unique < case H3.
+Subgoal 3.1:
+
+Variables: G H N1 M1 T N2
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+H4 : {H, size n1 z |- size (M1 n1) N1}*
+H5 : {H, size n1 z |- size (M1 n1) N2}
+============================
+ s N1 = s N2
+
+Subgoal 3.2 is:
+ s N1 = N'
+
+Subgoal 4 is:
+ s N3 = N'
+
+Subgoal 5 is:
+ N = N'
+
+size_unique < apply IH to _ H4 H5.
+Subgoal 3.1:
+
+Variables: G H M1 T N2
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+H4 : {H, size n1 z |- size (M1 n1) N2}*
+H5 : {H, size n1 z |- size (M1 n1) N2}
+============================
+ s N2 = s N2
+
+Subgoal 3.2 is:
+ s N1 = N'
+
+Subgoal 4 is:
+ s N3 = N'
+
+Subgoal 5 is:
+ N = N'
+
+size_unique < search.
+Subgoal 3.2:
+
+Variables: G H N' N1 M1 T F
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+H4 : {H, size n1 z |- size (M1 n1) N1}*
+H5 : {H, [F] |- size (lam T (x\M1 x)) N'}
+H6 : member F H
+============================
+ s N1 = N'
+
+Subgoal 4 is:
+ s N3 = N'
+
+Subgoal 5 is:
+ N = N'
+
+size_unique < apply ctx_invert2 to H1 H6.
+Subgoal 3.2:
+
+Variables: G H N' N1 M1 T X
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+H4 : {H, size n1 z |- size (M1 n1) N1}*
+H5 : {H, [size X z] |- size (lam T (x\M1 x)) N'}
+H6 : member (size X z) H
+H7 : is_name X
+============================
+ s N1 = N'
+
+Subgoal 4 is:
+ s N3 = N'
+
+Subgoal 5 is:
+ N = N'
+
+size_unique < case H5.
+Subgoal 3.2:
+
+Variables: G H N1 M1 T
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+H4 : {H, size n1 z |- size (M1 n1) N1}*
+H6 : member (size (lam T (x\M1 x)) z) H
+H7 : is_name (lam T (x\M1 x))
+============================
+ s N1 = z
+
+Subgoal 4 is:
+ s N3 = N'
+
+Subgoal 5 is:
+ N = N'
+
+size_unique < case H7.
+Subgoal 4:
+
+Variables: G H N' N3 N2 N1 M2 M1
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+H3 : {H |- size (app M1 M2) N'}
+H4 : {H |- size M1 N1}*
+H5 : {H |- size M2 N2}*
+H6 : {H |- sum N1 N2 N3}*
+============================
+ s N3 = N'
+
+Subgoal 5 is:
+ N = N'
+
+size_unique < case H3.
+Subgoal 4.1:
+
+Variables: G H N3 N2 N1 M2 M1 N6 N4 N5
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+H4 : {H |- size M1 N1}*
+H5 : {H |- size M2 N2}*
+H6 : {H |- sum N1 N2 N3}*
+H7 : {H |- size M1 N5}
+H8 : {H |- size M2 N4}
+H9 : {H |- sum N5 N4 N6}
+============================
+ s N3 = s N6
+
+Subgoal 4.2 is:
+ s N3 = N'
+
+Subgoal 5 is:
+ N = N'
+
+size_unique < apply IH to H1 H4 H7.
+Subgoal 4.1:
+
+Variables: G H N3 N2 M2 M1 N6 N4 N5
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+H4 : {H |- size M1 N5}*
+H5 : {H |- size M2 N2}*
+H6 : {H |- sum N5 N2 N3}*
+H7 : {H |- size M1 N5}
+H8 : {H |- size M2 N4}
+H9 : {H |- sum N5 N4 N6}
+============================
+ s N3 = s N6
+
+Subgoal 4.2 is:
+ s N3 = N'
+
+Subgoal 5 is:
+ N = N'
+
+size_unique < apply IH to H1 H5 H8.
+Subgoal 4.1:
+
+Variables: G H N3 M2 M1 N6 N4 N5
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+H4 : {H |- size M1 N5}*
+H5 : {H |- size M2 N4}*
+H6 : {H |- sum N5 N4 N3}*
+H7 : {H |- size M1 N5}
+H8 : {H |- size M2 N4}
+H9 : {H |- sum N5 N4 N6}
+============================
+ s N3 = s N6
+
+Subgoal 4.2 is:
+ s N3 = N'
+
+Subgoal 5 is:
+ N = N'
+
+size_unique < apply sum!size to H1 H6.
+Subgoal 4.1:
+
+Variables: G H N3 M2 M1 N6 N4 N5
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+H4 : {H |- size M1 N5}*
+H5 : {H |- size M2 N4}*
+H6 : {H |- sum N5 N4 N3}*
+H7 : {H |- size M1 N5}
+H8 : {H |- size M2 N4}
+H9 : {H |- sum N5 N4 N6}
+H10 : {sum N5 N4 N3}
+============================
+ s N3 = s N6
+
+Subgoal 4.2 is:
+ s N3 = N'
+
+Subgoal 5 is:
+ N = N'
+
+size_unique < apply sum!size to H1 H9.
+Subgoal 4.1:
+
+Variables: G H N3 M2 M1 N6 N4 N5
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+H4 : {H |- size M1 N5}*
+H5 : {H |- size M2 N4}*
+H6 : {H |- sum N5 N4 N3}*
+H7 : {H |- size M1 N5}
+H8 : {H |- size M2 N4}
+H9 : {H |- sum N5 N4 N6}
+H10 : {sum N5 N4 N3}
+H11 : {sum N5 N4 N6}
+============================
+ s N3 = s N6
+
+Subgoal 4.2 is:
+ s N3 = N'
+
+Subgoal 5 is:
+ N = N'
+
+size_unique < apply sum_unique to H10 H11.
+Subgoal 4.1:
+
+Variables: G H M2 M1 N6 N4 N5
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+H4 : {H |- size M1 N5}*
+H5 : {H |- size M2 N4}*
+H6 : {H |- sum N5 N4 N6}*
+H7 : {H |- size M1 N5}
+H8 : {H |- size M2 N4}
+H9 : {H |- sum N5 N4 N6}
+H10 : {sum N5 N4 N6}
+H11 : {sum N5 N4 N6}
+============================
+ s N6 = s N6
+
+Subgoal 4.2 is:
+ s N3 = N'
+
+Subgoal 5 is:
+ N = N'
+
+size_unique < search.
+Subgoal 4.2:
+
+Variables: G H N' N3 N2 N1 M2 M1 F
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+H4 : {H |- size M1 N1}*
+H5 : {H |- size M2 N2}*
+H6 : {H |- sum N1 N2 N3}*
+H7 : {H, [F] |- size (app M1 M2) N'}
+H8 : member F H
+============================
+ s N3 = N'
+
+Subgoal 5 is:
+ N = N'
+
+size_unique < apply ctx_invert2 to H1 H8.
+Subgoal 4.2:
+
+Variables: G H N' N3 N2 N1 M2 M1 X
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+H4 : {H |- size M1 N1}*
+H5 : {H |- size M2 N2}*
+H6 : {H |- sum N1 N2 N3}*
+H7 : {H, [size X z] |- size (app M1 M2) N'}
+H8 : member (size X z) H
+H9 : is_name X
+============================
+ s N3 = N'
+
+Subgoal 5 is:
+ N = N'
+
+size_unique < case H7.
+Subgoal 4.2:
+
+Variables: G H N3 N2 N1 M2 M1
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+H4 : {H |- size M1 N1}*
+H5 : {H |- size M2 N2}*
+H6 : {H |- sum N1 N2 N3}*
+H8 : member (size (app M1 M2) z) H
+H9 : is_name (app M1 M2)
+============================
+ s N3 = z
+
+Subgoal 5 is:
+ N = N'
+
+size_unique < case H9.
+Subgoal 5:
+
+Variables: G H M N N' F
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+H3 : {H |- size M N'}
+H4 : {H, [F] |- size M N}*
+H5 : member F H
+============================
+ N = N'
+
+size_unique < apply ctx_invert2 to H1 H5.
+Subgoal 5:
+
+Variables: G H M N N' X
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+H3 : {H |- size M N'}
+H4 : {H, [size X z] |- size M N}*
+H5 : member (size X z) H
+H6 : is_name X
+============================
+ N = N'
+
+size_unique < case H4.
+Subgoal 5:
+
+Variables: G H M N'
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx G H
+H3 : {H |- size M N'}
+H5 : member (size M z) H
+H6 : is_name M
+============================
+ z = N'
+
+size_unique < case H6.
+Subgoal 5:
+
+Variables: G H N'
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx (G n1) (H n1)
+H3 : {H n1 |- size n1 N'}
+H5 : member (size n1 z) (H n1)
+============================
+ z = N'
+
+size_unique < case H3.
+Subgoal 5:
+
+Variables: G H N' F1
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx (G n1) (H n1)
+H5 : member (size n1 z) (H n1)
+H7 : {H n1, [F1 n1] |- size n1 N'}
+H8 : member (F1 n1) (H n1)
+============================
+ z = N'
+
+size_unique < apply ctx_invert2 to H1 H8.
+Subgoal 5:
+
+Variables: G H N' X1
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx (G n1) (H n1)
+H5 : member (size n1 z) (H n1)
+H7 : {H n1, [size (X1 n1) z] |- size n1 N'}
+H8 : member (size (X1 n1) z) (H n1)
+H9 : is_name (X1 n1)
+============================
+ z = N'
+
+size_unique < case H7.
+Subgoal 5:
+
+Variables: G H
+IH : forall G H M N N', ctx G H -> {H |- size M N}* -> {H |- size M N'} ->
+       N =
+     N'
+H1 : ctx (G n1) (H n1)
+H5 : member (size n1 z) (H n1)
+H8 : member (size n1 z) (H n1)
+H9 : is_name n1
+============================
+ z = z
+
+size_unique < search.
+Proof completed.
+Abella < 
